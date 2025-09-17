@@ -44,7 +44,7 @@ const Services = () => {
 
   return (
     <section data-aos="fade-up" id="services" className="py-14 bg-gradient-subtle">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="app_container">
         <div className="text-center mb-16" data-aos="fade-up" data-aos-delay="50">
           <Badge variant="outline" className="mb-4 text-primary border-primary">
             Our Services
@@ -94,7 +94,7 @@ const Services = () => {
         </div>
 
         <div className="mt-20 text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="flex flex-col md:flex-row justify-center items-center  gap-8">
             <div data-aos="fade-up" data-aos-delay="700">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2">6+</div>
               <div className="text-sm text-muted-foreground">Years Experience</div>

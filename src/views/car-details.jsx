@@ -1,10 +1,8 @@
 import { useState } from "react"
-import {Link} from "react-router"
+import { Link } from "react-router"
 import {
   ChevronLeft,
   ChevronRight,
-  ZoomIn,
-  ZoomOut,
   X,
   Car,
   Gauge,
@@ -13,13 +11,13 @@ import {
   Calendar,
   MapPin,
   Palette,
-  Eye,
   Home,
   DollarSign,
   Star,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import Seo from "@/components/seo"
 
 const carData = {
   id: 89,
@@ -101,8 +99,22 @@ const similarCars = [
 
 export default function CarDetailsPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isZoomed, setIsZoomed] = useState(false)
-  const [showFullscreen, setShowFullscreen] = useState(false)
+  const [zoomMode, setZoomMode] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: "50%", y: "50%" });
+
+
+  const handleZoomToggle = () => {
+    setZoomMode((prev) => !prev);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!zoomMode) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePos({ x: `${x}%`, y: `${y}%` });
+  };
+
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev === carData.vehicle_photos.length - 1 ? 0 : prev + 1))
@@ -114,6 +126,18 @@ export default function CarDetailsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+
+      <Seo
+        title="Car Details Title"
+        description="A detailed description of the Home page."
+        canonical="https://yourdomain.com/"
+        schemaMarkup={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Your Site',
+          url: 'https://yourdomain.com/',
+        }}
+      />
       <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border-b">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-2 text-sm">
@@ -150,70 +174,50 @@ export default function CarDetailsPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             <div className="border border-border rounded-lg overflow-hidden">
               <div className="relative">
-                {/* Main Image */}
-                <div className="relative aspect-[16/10] bg-gradient-to-br from-slate-100 to-slate-200">
+                <div className="relative overflow-hidden aspect-[16/9]" onClick={handleZoomToggle} onMouseMove={handleMouseMove}>
                   <img
-                    src={carData.vehicle_photos[currentImageIndex]?.name || "/placeholder.svg?height=600&width=800"}
+                    src={carData.vehicle_photos[currentImageIndex]?.name}
                     alt={carData.title}
-                    className={`object-cover transition-transform duration-300 ${isZoomed ? "scale-150" : "scale-100"}`}
+                    className={`w-full h-full object-cover transition-transform duration-300 ${zoomMode ? "scale-210 cursor-zoom-out" : "scale-100 cursor-zoom-in"
+                      }`}
+                    style={{
+                      transformOrigin: `${mousePos.x} ${mousePos.y}`,
+                    }}
                   />
 
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border"
-                    onClick={prevImage}
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border"
-                    onClick={nextImage}
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </Button>
-
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      className="bg-white/90 hover:bg-white border"
-                      onClick={() => setIsZoomed(!isZoomed)}
-                    >
-                      {isZoomed ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      size="icon"
-                      className="bg-white/90 hover:bg-white border"
-                      onClick={() => setShowFullscreen(true)}
-                    >
-                      <Eye className="w-4 h-4" />
-                    </Button>
-                  </div>
-
-                  {/* Image Counter */}
                   <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
                     {currentImageIndex + 1} / {carData.vehicle_photos.length}
                   </div>
                 </div>
 
-                {/* Thumbnail Strip */}
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute z-10 left-4 top-[45%] -translate-y-1/2 bg-primary rounded-full"
+                  onClick={prevImage}
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="absolute z-10 right-4 top-[45%] -translate-y-1/2 bg-primary rounded-full"
+                  onClick={nextImage}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+
                 <div className="p-4 bg-white">
                   <div className="flex gap-2 overflow-x-auto">
                     {carData.vehicle_photos.map((photo, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`relative flex-shrink-0 w-16 h-12 sm:w-20 sm:h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                          index === currentImageIndex ? "border-primary" : "border-transparent hover:border-primary/50"
-                        }`}
+                        className={`relative flex-shrink-0 w-16 h-12 sm:w-20 sm:h-16 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex ? "border-primary" : "border-transparent hover:border-primary/50"
+                          }`}
                       >
                         <img
                           src={photo.thumbnail || photo.name}
@@ -230,7 +234,6 @@ export default function CarDetailsPage() {
             <div className="border border-border rounded-lg">
               <div className="p-4 sm:p-6">
                 <div className="space-y-6">
-                  {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                     <div>
                       <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2">{carData.title}</h1>
@@ -331,7 +334,6 @@ export default function CarDetailsPage() {
                     </div>
                   </div>
 
-                  {/* Colors */}
                   <div>
                     <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                       <Palette className="w-5 h-5 text-primary" />
@@ -349,7 +351,6 @@ export default function CarDetailsPage() {
                     </div>
                   </div>
 
-                  {/* VIN */}
                   <div className="bg-slate-50 p-4 rounded-lg">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                       <span className="text-muted-foreground">VIN Number</span>
@@ -417,35 +418,6 @@ export default function CarDetailsPage() {
           </div>
         </div>
       </div>
-
-      {/* Fullscreen Modal */}
-      {showFullscreen && (
-        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 text-white hover:bg-white/20"
-            onClick={() => setShowFullscreen(false)}
-          >
-            <X className="w-6 h-6" />
-          </Button>
-          <div className="relative w-full h-full max-w-6xl max-h-[90vh] m-4">
-            <img
-              src={carData.vehicle_photos[currentImageIndex]?.name || "/placeholder.svg"}
-              alt={carData.title}
-              className="object-contain"
-            />
-          </div>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            <Button variant="secondary" size="icon" onClick={prevImage}>
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-            <Button variant="secondary" size="icon" onClick={nextImage}>
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router";
 import { Menu, X, Ship, Phone, ChevronDown, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,79 +8,99 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import logoImage from "@/assets/logo-main.png";
-import { useEffect } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import logoImage from "@/assets/logo-main.png";
+import { useNavigate } from "react-router";
+import { useLocation } from "react-router";
 
 const navItems = [
-  { name: "Home", href: "#home" },
+  { name: "Home", href: "/" },
   { name: "Services", href: "#services" },
+  { name: "Cars", href: "/cars" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];
 
 const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+    setIsSheetOpen(false);
   }, []);
 
   const handleNavLinkClick = (href) => {
     if (href.startsWith("#")) {
       const sectionId = href.substring(1);
       scrollToSection(sectionId);
+    }else{
+      navigate(href)
     }
-    setIsMenuOpen(false);
+    setIsSheetOpen(false);
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav className={cn(`sticky top-0 left-0 right-0 z-50`, {
-      "bg-background/95 backdrop-blur-md border-b shadow-soft": isScrolled,
-      "gradient-with-opacity": !isScrolled
-    })}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[80px]">
-          <Link to="/">
-            <div className="flex items-center space-x-3">
+    <header
+      className={cn(
+        "sticky top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
+        {
+          "bg-background/95 backdrop-blur-md border-b shadow-soft": isScrolled,
+          "gradient-with-opacity": !isScrolled && pathname === '/',
+        }
+      )}
+    >
+      <nav className="app_container">
+        <div className="grid grid-cols-2 lg:grid-cols-3 items-center h-[80px]">
+          <div className="flex items-center">
+            <Link to="/">
               <img
                 src={logoImage}
                 alt="Olfat Shipping Logo"
-                className="h-16 w-auto"
+                className={cn("h-16 w-auto transition-all", {
+                  "h-12": isScrolled,
+                })}
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex justify-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                to={item.href} 
+                to={item.href}
                 onClick={(e) => {
-                  e.preventDefault(); 
+                  e.preventDefault();
                   handleNavLinkClick(item.href);
                 }}
-                className="text-foreground hover:text-primary transition-smooth font-medium"
+                className={cn(`text-foreground hover:text-primary transition-smooth font-medium relative group transition-colors duration-300`, {
+                  "text-primary": pathname === item.href
+                })}
               >
                 {item.name}
+                <span className={cn(`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full`, {"w-full": pathname === item.href})} />
               </Link>
             ))}
+          </div>
 
-            <div className="flex items-center space-x-3">
+          <div className="flex justify-end items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-3">
               <Button
                 onClick={() => handleNavLinkClick("#contact")}
                 className="gradient-primary hover:shadow-elegant transition-smooth"
@@ -91,7 +111,7 @@ const Navigation = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="border-primary/20">
+                  <Button variant="outline" size="sm" className="border-primary/20 h-11">
                     <User className="w-4 h-4 mr-2" />
                     Login
                     <ChevronDown className="w-4 h-4 ml-2" />
@@ -113,49 +133,48 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-          </div>
 
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="lg:hidden">
+                  {isSheetOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="bg-background border-l">
+                <SheetHeader>
+                  <SheetTitle className="text-lg font-semibold">Menu</SheetTitle>
+                </SheetHeader>
+                <div className="mt-6 space-y-4 px-5">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavLinkClick(item.href);
+                      }}
+                      className={cn(`block relative text-foreground hover:text-primary transition-smooth font-medium w-fit`, {"text-primary": pathname === item.href})}
+                    >
+                      {item.name}
+                      <span className={cn(`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full`, {"w-full": pathname === item.href})} />
+                    </Link>
+                  ))}
+                  <div className="pt-4">
+                    <Button
+                      onClick={() => handleNavLinkClick("#contact")}
+                      className="w-full gradient-primary hover:shadow-elegant transition-smooth"
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      Get Quote
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-background border-t animate-fade-up">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavLinkClick(item.href);
-                  }}
-                  className="block px-3 py-2 text-foreground hover:text-primary transition-smooth font-medium w-full text-left"
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="px-3 py-2">
-                <Button
-                  onClick={() => handleNavLinkClick("#contact")}
-                  className="w-full gradient-primary hover:shadow-elegant transition-smooth"
-                >
-                  <Phone className="w-4 h-4 mr-2" />
-                  Get Quote
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

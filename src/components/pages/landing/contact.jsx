@@ -63,7 +63,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-14 bg-gradient-subtle" data-aos="fade-up">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="app_container">
         <div className="text-center mb-16" data-aos="fade-up" data-aos-delay="100">
           <Badge variant="outline" className="mb-4 text-primary border-primary">
             Get In Touch

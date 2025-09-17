@@ -32,7 +32,7 @@ const About = () => {
 
   return (
     <section id="about" className="py-14 bg-background" data-aos="fade-up">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="app_container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div data-aos="fade-right" data-aos-delay="100">
             <Badge variant="outline" className="mb-4 text-primary border-primary">

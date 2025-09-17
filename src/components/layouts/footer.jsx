@@ -28,9 +28,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-foreground text-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="app_container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
               <img 

@@ -43,7 +43,7 @@ const FAQ = () => {
 
   return (
     <section id="faq" className="py-14 bg-background" data-aos="fade-up">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="app_container">
 
         <div className="text-center mb-16" data-aos="fade-up" data-aos-delay="100">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
