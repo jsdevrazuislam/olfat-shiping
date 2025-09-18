@@ -184,8 +184,7 @@ const Contact = () => {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
+                 <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
                       Phone Number
                     </label>
@@ -198,21 +197,6 @@ const Contact = () => {
                       placeholder="+1 (555) 123-4567"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-foreground mb-2">
-                      Service Type *
-                    </label>
-                    <Input
-                      id="service"
-                      name="service"
-                      type="text"
-                      required
-                      value={formData.service}
-                      onChange={handleChange}
-                      placeholder="e.g., Car shipping to UK"
-                    />
-                  </div>
-                </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">

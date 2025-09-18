@@ -5,12 +5,12 @@ const ContactHero = () => {
 
 
     return (
-        <section className="relative bg-primary-gradient text-white py-20 overflow-hidden">
+        <section className="relative bg-primary-gradient text-white py-8 overflow-hidden">
             <div className="app_container">
                 <div className="max-w-4xl mx-auto text-center">
                      <Badge
                             variant="outline"
-                            className="mb-4 border-primary-foreground/20 text-primary-foreground"
+                            className="border-primary-foreground/20 text-primary-foreground"
                             data-aos="zoom-in"
                             data-aos-delay="300"
                         >
@@ -29,7 +29,7 @@ const ContactHero = () => {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8 mt-12">
+                    <div className="grid md:grid-cols-3 gap-8 mt-6">
                         <div data-aos="fade-up" data-aos-delay="300" className="text-center">
                             <div className="bg-accent/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
                                 <Truck className="w-8 h-8 text-accent" />

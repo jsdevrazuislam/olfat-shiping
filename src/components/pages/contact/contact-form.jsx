@@ -12,16 +12,9 @@ const ContactForm = () => {
   
   const [formData, setFormData] = useState({
     name: "",
+    subject: "",
     email: "",
     phone: "",
-    pickupLocation: "",
-    deliveryLocation: "",
-    vehicleYear: "",
-    vehicleMake: "",
-    vehicleModel: "",
-    vehicleType: "",
-    transportType: "",
-    targetDate: "",
     message: ""
   });
 
@@ -31,9 +24,7 @@ const ContactForm = () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     setFormData({
-      name: "", email: "", phone: "", pickupLocation: "", deliveryLocation: "",
-      vehicleYear: "", vehicleMake: "", vehicleModel: "", vehicleType: "",
-      transportType: "", targetDate: "", message: ""
+      name: "", email: "", phone: "", subject: "", message: ""
     });
     
     setIsSubmitting(false);
@@ -46,7 +37,7 @@ const ContactForm = () => {
   return (
     <section className="py-14 bg-muted/30">
       <div className="app_container">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-xl mx-auto">
           <div data-aos="fade-up" className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Get Your Free Quote</h2>
             <p className="text-sm md:text-lg text-muted-foreground">
@@ -64,7 +55,7 @@ const ContactForm = () => {
             
             <CardContent className='px-0 md:px-6'>
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-3 gap-4">
+                <div className="flex flex-col gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>
                     <Input
@@ -101,110 +92,6 @@ const ContactForm = () => {
                     />
                   </div>
                 </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="pickup">Pickup Location *</Label>
-                    <Input
-                      id="pickup"
-                      value={formData.pickupLocation}
-                      onChange={(e) => handleChange("pickupLocation", e.target.value)}
-                      placeholder="City, State or ZIP"
-                      required
-                      className="border-automotive-gray-light focus:border-accent"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="delivery">Delivery Location *</Label>
-                    <Input
-                      id="delivery"
-                      value={formData.deliveryLocation}
-                      onChange={(e) => handleChange("deliveryLocation", e.target.value)}
-                      placeholder="City, State or ZIP"
-                      required
-                      className="border-automotive-gray-light focus:border-accent"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-4 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="year">Year *</Label>
-                    <Input
-                      id="year"
-                      value={formData.vehicleYear}
-                      onChange={(e) => handleChange("vehicleYear", e.target.value)}
-                      placeholder="2020"
-                      required
-                      className="border-automotive-gray-light focus:border-accent"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="make">Make *</Label>
-                    <Input
-                      id="make"
-                      value={formData.vehicleMake}
-                      onChange={(e) => handleChange("vehicleMake", e.target.value)}
-                      placeholder="Toyota"
-                      required
-                      className="border-automotive-gray-light focus:border-accent"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="model">Model *</Label>
-                    <Input
-                      id="model"
-                      value={formData.vehicleModel}
-                      onChange={(e) => handleChange("vehicleModel", e.target.value)}
-                      placeholder="Camry"
-                      required
-                      className="border-automotive-gray-light focus:border-accent"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="vehicleType">Vehicle Type *</Label>
-                    <Select value={formData.vehicleType} onValueChange={(value) => handleChange("vehicleType", value)}>
-                      <SelectTrigger className="border-automotive-gray-light focus:border-accent w-full">
-                        <SelectValue placeholder="Select type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="sedan">Sedan</SelectItem>
-                        <SelectItem value="suv">SUV</SelectItem>
-                        <SelectItem value="truck">Truck</SelectItem>
-                        <SelectItem value="coupe">Coupe</SelectItem>
-                        <SelectItem value="convertible">Convertible</SelectItem>
-                        <SelectItem value="motorcycle">Motorcycle</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="transport">Transport Type *</Label>
-                    <Select value={formData.transportType} onValueChange={(value) => handleChange("transportType", value)}>
-                      <SelectTrigger className="border-automotive-gray-light focus:border-accent w-full">
-                        <SelectValue placeholder="Select transport type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="open">Open Transport (Most Popular)</SelectItem>
-                        <SelectItem value="enclosed">Enclosed Transport (Premium)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="date">Preferred Ship Date</Label>
-                    <Input
-                      id="date"
-                      type="date"
-                      value={formData.targetDate}
-                      onChange={(e) => handleChange("targetDate", e.target.value)}
-                      className="border-automotive-gray-light focus:border-accent"
-                    />
-                  </div>
-                </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="message">Additional Information</Label>
                   <Textarea
