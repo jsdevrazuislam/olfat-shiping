@@ -22,10 +22,10 @@ import { useLocation } from "react-router";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "#services" },
+  { name: "Services", href: "/services" },
   { name: "Cars", href: "/cars" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const Navigation = () => {
@@ -102,7 +102,7 @@ const Navigation = () => {
           <div className="flex justify-end items-center space-x-3">
             <div className="hidden md:flex items-center space-x-3">
               <Button
-                onClick={() => handleNavLinkClick("#contact")}
+                onClick={() => handleNavLinkClick("/contact")}
                 className="gradient-primary hover:shadow-elegant transition-smooth"
               >
                 <Phone className="w-4 h-4 mr-2" />
@@ -161,7 +161,7 @@ const Navigation = () => {
                   ))}
                   <div className="pt-4">
                     <Button
-                      onClick={() => handleNavLinkClick("#contact")}
+                      onClick={() => handleNavLinkClick("/contact")}
                       className="w-full gradient-primary hover:shadow-elegant transition-smooth"
                     >
                       <Phone className="w-4 h-4 mr-2" />

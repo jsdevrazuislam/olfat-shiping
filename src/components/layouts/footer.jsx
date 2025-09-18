@@ -13,12 +13,12 @@ const Footer = () => {
   ];
 
   const services = [
-    "Personal Vehicle Shipping",
-    "Commercial Fleet Transport",
-    "Container Shipping",
-    "Express Air Freight",
-    "Customs Clearance",
-    "Insurance Services"
+    "Door-to-Door Car Shipping",
+    "Open & Enclosed Carrier Options",
+    "International Car Shipping",
+    "Air Freight for Cars",
+    "Destination Handling",
+    "Dedicated Support"
   ];
 
   const scrollToSection = (sectionId) => {
@@ -41,7 +41,7 @@ const Footer = () => {
             <p className="text-background/80 mb-6 text-sm leading-relaxed">
               Your trusted partner for worldwide vehicle shipping services. 
               Professional, reliable, and secure transportation solutions 
-              for over 15 years.
+              for over 6+ years.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:bg-primary-light transition-smooth">

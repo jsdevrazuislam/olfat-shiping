@@ -2,8 +2,7 @@ import { Car, Truck, Ship, Plane, MapPin, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-const Services = () => {
-  const services = [
+const services = [
     {
       icon: Car,
       title: "Door-to-Door Car Shipping",
@@ -40,7 +39,9 @@ const Services = () => {
       description: "Expert team guiding you through every step of the shipping process with personalized care.",
       features: ["One-on-One Assistance", "24/7 Support", "Status Updates"]
     }
-  ];
+];
+
+const Services = () => {
 
   return (
     <section data-aos="fade-up" id="services" className="py-14 bg-gradient-subtle">
