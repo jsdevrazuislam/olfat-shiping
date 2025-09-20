@@ -44,7 +44,7 @@ const Navigation = () => {
     if (href.startsWith("#")) {
       const sectionId = href.substring(1);
       scrollToSection(sectionId);
-    }else{
+    } else {
       navigate(href)
     }
     setIsSheetOpen(false);
@@ -94,7 +94,7 @@ const Navigation = () => {
                 })}
               >
                 {item.name}
-                <span className={cn(`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full`, {"w-full": pathname === item.href})} />
+                <span className={cn(`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full`, { "w-full": pathname === item.href })} />
               </Link>
             ))}
           </div>
@@ -118,18 +118,27 @@ const Navigation = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-background border-primary/10">
-                  <DropdownMenuItem className="cursor-pointer hover:bg-primary/5">
-                    <User className="w-4 h-4 mr-2" />
-                    Login as Admin
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer hover:bg-primary/5">
-                    <Ship className="w-4 h-4 mr-2" />
-                    Login as Shipping Import
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer hover:bg-primary/5">
-                    <Ship className="w-4 h-4 mr-2" />
-                    Login as Shipping Export
-                  </DropdownMenuItem>
+                  <Link to="https://system.olfatshipping.com/login" target="_blank">
+                    <DropdownMenuItem className="cursor-pointer hover:bg-primary/5">
+                      <User className="w-4 h-4 mr-2" />
+                      Login as Admin
+                    </DropdownMenuItem>
+                  </Link>
+
+                  <Link to="https://system.olfatshipping.com/login" target="_blank">
+                    <DropdownMenuItem className="cursor-pointer hover:bg-primary/5">
+                      <Ship className="w-4 h-4 mr-2" />
+                      Login as Shipping Import
+                    </DropdownMenuItem>
+                  </Link>
+
+
+                  <Link to="https://export.olfatshipping.com/login" target="_blank">
+                    <DropdownMenuItem className="cursor-pointer hover:bg-primary/5">
+                      <Ship className="w-4 h-4 mr-2" />
+                      Login as Shipping Export
+                    </DropdownMenuItem>
+                  </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -153,10 +162,10 @@ const Navigation = () => {
                         e.preventDefault();
                         handleNavLinkClick(item.href);
                       }}
-                      className={cn(`block relative text-foreground hover:text-primary transition-smooth font-medium w-fit`, {"text-primary": pathname === item.href})}
+                      className={cn(`block relative text-foreground hover:text-primary transition-smooth font-medium w-fit`, { "text-primary": pathname === item.href })}
                     >
                       {item.name}
-                      <span className={cn(`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full`, {"w-full": pathname === item.href})} />
+                      <span className={cn(`absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full`, { "w-full": pathname === item.href })} />
                     </Link>
                   ))}
                   <div className="pt-4">

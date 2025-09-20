@@ -5,10 +5,10 @@ import { Card } from "@/components/ui/card";
 
 
 
-const mainImage = 'https://preview--ride-render-studio.lovable.app/assets/ford-explorer-main-BclNHzrT.jpg'
-const interiorImage = 'https://preview--ride-render-studio.lovable.app/assets/ford-explorer-interior-CPo4Uwrd.jpg';
-const sideImage = "https://preview--ride-render-studio.lovable.app/assets/ford-explorer-side-DDTkeEr8.jpg";
-const engineImage = "https://preview--ride-render-studio.lovable.app/assets/ford-explorer-engine-DmVTEJDE.jpg"
+const mainImage = 'https://fls-9fd3ec99-d165-4543-bba8-eceff183d0c9.laravel.cloud/uploads/vehicles/photos/19/tmpznggcLomjk1758095157.jpg'
+const interiorImage = 'https://fls-9fd3ec99-d165-4543-bba8-eceff183d0c9.laravel.cloud/uploads/vehicles/photos/19/tmpuBMn0PaduI1758095154.jpg';
+const sideImage = "https://fls-9fd3ec99-d165-4543-bba8-eceff183d0c9.laravel.cloud/uploads/vehicles/photos/19/tmpPOJj82Sc3c1758095154.jpg";
+const engineImage = "https://fls-9fd3ec99-d165-4543-bba8-eceff183d0c9.laravel.cloud/uploads/vehicles/photos/19/tmpjAUlSFK41w1758095157.jpg"
 
 const CarImageGallery = () => {
   const images = [
@@ -63,7 +63,7 @@ const CarImageGallery = () => {
     <Card className='py-0 border-none'>
       <div className="space-y-4">
         <div className="relative group">
-          <div className="relative aspect-[14/6] bg-muted rounded-lg overflow-hidden" onClick={handleZoomToggle} onMouseMove={handleMouseMove}>
+          <div className="relative aspect-[16/9] bg-muted rounded-lg overflow-hidden" onClick={handleZoomToggle} onMouseMove={handleMouseMove}>
             <img
               src={images[selectedImage].src}
               alt={images[selectedImage].alt}

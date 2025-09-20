@@ -53,7 +53,7 @@ const CarDetailsPage = () => {
   return (
     <div>
       <div className="bg-primary-gradient text-white">
-        <div className="app_container">
+        <div className="!max-w-[345px] sm:!max-w-[688px] lg:!max-w-[1225px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4">
             <div>
               <h1 className="text-4xl font-bold mb-2">1975 Ford Explorer</h1>
@@ -85,7 +85,7 @@ const CarDetailsPage = () => {
         </div>
       </div>
 
-      <div className="app_container mt-6">
+      <div className="!max-w-[345px] sm:!max-w-[688px] lg:!max-w-[1225px] mx-auto mt-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <CarImageGallery />
